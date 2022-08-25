@@ -16,10 +16,11 @@ class UpdateScreenState extends State<UpdateScreen>
   var _formkey = GlobalKey<FormState>();
   var id;
   TextEditingController _name = TextEditingController();
+  TextEditingController _lastname = TextEditingController();
   TextEditingController _contact = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
-  TextEditingController _lastname = TextEditingController();
+
 
   int _groupValue = 0;
 
@@ -127,7 +128,7 @@ class UpdateScreenState extends State<UpdateScreen>
                         isDense: true,
                         labelText: "Enter Last Name",
                         labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.w400),
-                        hintText: "Enter Name Here",
+                        hintText: "Enter Last Name Here",
                         prefixIcon: Icon
                           (Icons.person,
                           color: Colors.black,
@@ -237,10 +238,6 @@ class UpdateScreenState extends State<UpdateScreen>
                         {
                           return "Please Enter Password";
                         }
-                        if(value.length!=6)
-                        {
-                          return "Password should be 6 character";
-                        }
                         return null;
                       },
                     ),
@@ -284,7 +281,7 @@ class UpdateScreenState extends State<UpdateScreen>
                           }
 
                           print("Name :" + namen1);
-                          print("LastName :" + lastname1);
+                          print("lastname :" + lastname1);
                           print("Contact :" + numbern2);
                           print("Email :" + emailn3);
                           print("Password :" + passwordn4);

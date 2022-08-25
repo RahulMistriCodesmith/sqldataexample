@@ -14,7 +14,8 @@ class RegistrationPage extends StatefulWidget
 
 class  RegistrationPageState extends State<RegistrationPage>
 {
-  var _formkey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
+
   TextEditingController _firstname = TextEditingController();
   TextEditingController _contact = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -28,6 +29,15 @@ class  RegistrationPageState extends State<RegistrationPage>
       _groupValue = index!;
     });
   }
+
+  var dbHelper;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHandler();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class  RegistrationPageState extends State<RegistrationPage>
             Container(
               padding: EdgeInsets.fromLTRB(25, 60, 25, 25),
               child: Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -203,10 +213,6 @@ class  RegistrationPageState extends State<RegistrationPage>
                         {
                           return "Please Enter Password";
                         }
-                        if(value.length!=6)
-                        {
-                          return "Password should be 6 character";
-                        }
                         return null;
                       },
                     ),
@@ -235,13 +241,12 @@ class  RegistrationPageState extends State<RegistrationPage>
 
                     InkWell(
                       onTap: () async {
-                        if(_formkey.currentState!.validate()) {
-                          var firstname = _firstname.text.toString();
-                          var lastname = _lastname.text.toString();
-                          var numbern2 = _contact.text.toString();
-                          var emailn3 = _email.text.toString();
-                          var passwordn4 = _password.text.toString();
-
+                        if(_formKey.currentState!.validate()) {
+                          var first_name = _firstname.text.toString();
+                          var last_name = _lastname.text.toString();
+                          var number = _contact.text.toString();
+                          var email_id = _email.text.toString();
+                          var password = _password.text.toString();
                           var gender = "";
 
                           if (_groupValue == 0) {
@@ -251,17 +256,17 @@ class  RegistrationPageState extends State<RegistrationPage>
                             gender = "female";
                           }
 
-                          print("Name :" + firstname);
-                          print("lastname:" + lastname);
-                          print("Contact :" + numbern2);
-                          print("Email :" + emailn3);
-                          print("Password :" + passwordn4);
+                          print("First Name :" + first_name);
+                          print("Last Name :" + last_name);
+                          print("Contact :" + number);
+                          print("Email :" + email_id);
+                          print("Password :" + password);
                           print("Gender :" + gender);
 
                           DatabaseHandler obj = new DatabaseHandler();
-                          int id = await obj.insert_records(firstname, lastname, numbern2, emailn3, passwordn4, gender);
+                          int id = await obj.insert_records(first_name, last_name,number, email_id, password, gender);
                           print("Record Inserted At:"+id.toString());
-                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> LoginPage()));
 
                         }
                       },
@@ -282,19 +287,19 @@ class  RegistrationPageState extends State<RegistrationPage>
               ),
             ),
 
-            /*Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Already have an account?",),
 
                 TextButton(
                   onPressed: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   child: Text("Login",),
                 ),
               ],
-            ),*/
+            ),
 
 
           ],

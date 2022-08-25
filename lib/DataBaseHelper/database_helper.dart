@@ -28,15 +28,28 @@ class DatabaseHandler{
 
   create_table(Database db,int version) async
   {
-    db.execute("create table users (userid integer primary key autoincrement,name text,number text,email text,password text,confirmpwd text,gender text)");
+    db.execute("create table users (userid integer primary key autoincrement,name text,lastname text,number text,email text,password text,gender text)");
     print("users table created");
   }
 
   Future<int> insert_records(n1,n2,n3,n4,n5,n6) async
   {
     var db = await create_db();
-    int id = await db!.rawInsert("insert into users (name,number,email,password,confirmpwd,gender) values(?,?,?,?,?,?)",[n1,n2,n3,n4,n5,n6]);
+    int id = await db!.rawInsert("insert into users (name,lastname,number,email,password,gender) values(?,?,?,?,?,?)",[n1,n2,n3,n4,n5,n6]);
     return id;
+  }
+
+  Future<List<Map<String, Object?>>?> loginUser(String email_ID, String pass) async {
+    var dbClient = await db;
+    var res = await dbClient!.rawQuery("SELECT * FROM users WHERE "
+        "email = '$email_ID' AND "
+        "password = '$pass'");
+
+    if (res.length > 0) {
+      return res;
+    }
+
+    return null;
   }
 
   Future<List> display_records() async
@@ -56,7 +69,7 @@ class DatabaseHandler{
   Future<int> update_records(n1,n2,n3,n4,n5,n6,id) async
   {
     var db = await create_db();
-    int sid = await db!.rawUpdate("update users set name=?,number=?,email=?,password=?,confirmpwd=?,gender=? where userid=?",[n1,n2,n3,n4,n5,n6,id]);
+    int sid = await db!.rawUpdate("update users set name=?,lastname=?,number=?,email=?,password=?,gender=? where userid=?",[n1,n2,n3,n4,n5,n6,id]);
     return sid;
   }
 

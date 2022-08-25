@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sqldataexample/Login_Page.dart';
-import 'package:sqldataexample/Register_Page.dart';
 import 'package:sqldataexample/update_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-// final routes = {
-//   '/login': (BuildContext context) => new LoginPage(),
-//   '/home': (BuildContext context) => new LoginPage(),
-//   '/': (BuildContext context) => new LoginPage(),
-// };
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         backgroundColor: Colors.white
       ),
-      home: RegistrationPage(),
+      home: LoginPage(),
       routes: {
         "UpdateScreen":(BuildContext context) =>UpdateScreen(),
       },

@@ -14,7 +14,7 @@ class  HomePageState extends State<HomePage>
 
   // List userdata = [];
 
-  late Future<List> userdata;
+  Future<List>? userdata;
 
   DatabaseHandler obj = new DatabaseHandler();
 
@@ -89,14 +89,11 @@ class  HomePageState extends State<HomePage>
                         ),
                         trailing: Column(
                           children: [
-                            Container(
-                              child:InkWell(
-                                child: Icon(Icons.edit,color: Colors.teal),
-                                onTap: () async{
-                                  // Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>UpdateScreen()));
-                                  Navigator.of(context).pushNamed("UpdateScreen",arguments: {"id":snapshot.data![position].row[0].toString()});
-                                },
-                              ),
+                            InkWell(
+                              child: Icon(Icons.edit,color: Colors.teal),
+                              onTap: () async{
+                                Navigator.of(context).pushNamed("UpdateScreen",arguments: {"id":snapshot.data![position].row[0].toString()});
+                              },
                             ),
                             SizedBox(height: 8),
                             Container(
